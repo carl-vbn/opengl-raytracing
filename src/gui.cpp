@@ -11,11 +11,13 @@ extern void free_image_data(void* imageData);
 extern bool refreshRequired;
 
 namespace GUI {
+	
 	GLFWwindow* window;
 	bool shouldQuit = false;
 	bool animationRenderWindowVisible = false;
 
 	void init(GLFWwindow* window) {
+
 		GUI::window = window;
 
 		// Setup Dear ImGui context
@@ -24,6 +26,8 @@ namespace GUI {
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+		io.Fonts->AddFontFromFileTTF("OpenSans-Bold.ttf", 15.0f);
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
