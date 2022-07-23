@@ -20,6 +20,7 @@
 #include "stb_image_write.h"
 
 #include "procedural_scenes.h"
+#define CDS_FULLSCREEN 4
 
 const GLfloat vertices[] = {
 	-1.0F, -1.0F, 0.0F,
@@ -247,6 +248,7 @@ bool handleMovementInput(GLFWwindow* window, double deltaTime, glm::vec3& camera
 	glm::vec3 right = glm::cross(forward, up);
 
 	glm::vec3 movementDirection(0);
+	float multiplyer = 1;
 
 	if (glfwGetKey(window, GLFW_KEY_W)) {
 		movementDirection += forward;
@@ -266,9 +268,13 @@ bool handleMovementInput(GLFWwindow* window, double deltaTime, glm::vec3& camera
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT)) {
 		movementDirection -= up;
 	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL)) {
+		multiplyer = 5;
+	}
+
 
 	if (glm::length(movementDirection) > 0.0f) {
-		cameraPosition += glm::normalize(movementDirection) * (float)deltaTime;
+		cameraPosition += glm::normalize(movementDirection) * (float)deltaTime * (float)multiplyer;
 		moved = true;
 	}
 
