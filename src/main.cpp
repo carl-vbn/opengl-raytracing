@@ -248,7 +248,7 @@ bool handleMovementInput(GLFWwindow* window, double deltaTime, glm::vec3& camera
 	glm::vec3 right = glm::cross(forward, up);
 
 	glm::vec3 movementDirection(0);
-	float multiplyer = 1;
+	float multiplier = 1;
 
 	if (glfwGetKey(window, GLFW_KEY_W)) {
 		movementDirection += forward;
@@ -269,12 +269,12 @@ bool handleMovementInput(GLFWwindow* window, double deltaTime, glm::vec3& camera
 		movementDirection -= up;
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL)) {
-		multiplyer = 5;
+		multiplier = 5;
 	}
 
 
 	if (glm::length(movementDirection) > 0.0f) {
-		cameraPosition += glm::normalize(movementDirection) * (float)deltaTime * (float)multiplyer;
+		cameraPosition += glm::normalize(movementDirection) * (float)deltaTime * (float)multiplier;
 		moved = true;
 	}
 
