@@ -53,6 +53,17 @@ GLuint directOutPassUniformLocation, accumulatedPassesUniformLocation, timeUnifo
 
 GLuint fbo;
 
+// Converts a windows path into a unix path if on unix.
+const char* agnosticPath(const char* in) {
+	#ifdef WIN32 
+		return in;
+	#else
+		std::string *str = new std::string(in);
+		std::replace(str->begin(), str->end(), '\\', '/');
+		return str->c_str();
+	#endif
+}
+
 void renderAnimation(GLFWwindow* window, glm::vec3 posA, float yawA, float pitchA, glm::vec3 posB, float yawB, float pitchB, int frames, int framePasses, int* renderedFrames=nullptr);
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height)
@@ -109,6 +120,9 @@ GLuint createShaderProgram(const char* vertex_file_path, const char* fragment_fi
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+
+	vertex_file_path = agnosticPath(vertex_file_path);
+	fragment_file_path = agnosticPath(fragment_file_path);
 
 	// Read the Vertex Shader code from the file
 	std::string VertexShaderCode;
